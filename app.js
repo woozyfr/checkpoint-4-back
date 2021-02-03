@@ -31,13 +31,14 @@ app.get("/bars", (req, res) => {
 
 
 app.post("/bars/", (req, res) => {
-  const { name, city, secret_code, code_postal, address, longitude, latitude, is_beer, is_vodka, is_whisky } = req.body;
+  console.log(req.body);
+  const { name, description,  city, secret_code, code_postal, address, longitude, latitude } = req.body;
   const created_at = "2021-02-03 11:45:46";
   const updated_at = created_at;
   
   connection.query(
-  "INSERT INTO bars( name, city, secret_code, code_postal, address, longitude, latitude, is_beer, is_vodka, is_whisky,created_at,updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-  [name, city, secret_code, code_postal, address, longitude, latitude, is_beer, is_vodka, is_whisky,created_at,updated_at], 
+  "INSERT INTO bars( name, description, city, secret_code, code_postal, address, longitude, latitude,created_at,updated_at) VALUES(?, ?,?, ?, ?, ?, ?, ?, ?, ?)",
+  [name,description, city, secret_code, code_postal, address, longitude, latitude,created_at,updated_at], 
   (err, results) => {
         if (err) {
           console.log(err);
@@ -68,11 +69,11 @@ app.get("/bars/:id", (req, res) => {
 
 
 app.put("/bars/:id", (req, res) => {
-  const { name, city, secret_code, code_postal, address, longitude, latitude, is_beer, is_vodka, is_whisky } = req.body;
+  const { name,description, city, secret_code, code_postal, address, longitude, latitude } = req.body;
   const updated_at = "2021-01-03 11:45:46";
   connection.query(
-    "UPDATE bars SET name=?, city=?, secret_code=?, code_postal=?, address=?, longitude=?, latitude=?, is_beer=?, is_vodka=?, is_whisky=?,updated_at=? WHERE id=?",
-      [name, city, secret_code, code_postal, address, longitude, latitude, is_beer, is_vodka, is_whisky,updated_at,req.params.id], 
+    "UPDATE bars SET name=?, description=?, city=?, secret_code=?, code_postal=?, address=?, longitude=?, latitude=?, updated_at=? WHERE id=?",
+      [name, description, city, secret_code, code_postal, address, longitude, latitude,updated_at,req.params.id], 
   (err, results) => {
         if (err) {
           console.log(err);
